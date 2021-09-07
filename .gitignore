@@ -1,0 +1,9 @@
+# Python executables
+*.pyc
+__pycache__
+
+# pygettext
+*.mo
+
+# macOS folders
+.DS_Store
