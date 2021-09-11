@@ -4,7 +4,7 @@ import argparse
 
 import discord
 
-from colorama import Fore
+from rich import print
 
 from atos import __version__ as atos_version
 
@@ -26,11 +26,12 @@ def parse_cli_flags(args):
 
 
 def print_welcome():
-    print(Fore.GREEN + "{0:-^50}".format(" Automated Tournament Organisation System "))
-    print(Fore.BLUE + "{0:^50}".format("Discord bot made by El Laggron"))
+    print("[green]{0:-^50}[/green]".format(" Automated Tournament Organisation System "))
+    print("[blue]{0:^50}[/blue]".format("Discord bot made by El Laggron"))
     print("")
-    print(Fore.RED + " {0:<20} {1:>10}".format("Bot version:", atos_version))
-    print(Fore.RED + " {0:<20} {1:>10}".format("Discord.py version:", discord.__version__))
+    print("[red] {0:<20} {1:>10}[/red]".format("Bot version:", atos_version))
+    print("[red] {0:<20} {1:>10}[/red]".format("Discord.py version:", discord.__version__))
+    print("")
 
 
 def main():
