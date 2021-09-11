@@ -1,14 +1,18 @@
 import sys
 import time
 import argparse
+import logging
 
 import discord
 
 from rich import print
 
 from atos import __version__ as atos_version
+from atos.loggers import init_logger
 
 # from atos.core.bot import ATOSBot
+
+log = logging.getLogger("atos")
 
 
 def parse_cli_flags(args):
@@ -29,8 +33,12 @@ def print_welcome():
     print("[green]{0:-^50}[/green]".format(" Automated Tournament Organisation System "))
     print("[blue]{0:^50}[/blue]".format("Discord bot made by El Laggron"))
     print("")
-    print("[red] {0:<20} {1:>10}[/red]".format("Bot version:", atos_version))
-    print("[red] {0:<20} {1:>10}[/red]".format("Discord.py version:", discord.__version__))
+    print(" [red]{0:<20}[/red] [yellow]{1:>10}[/yellow]".format("Bot version:", atos_version))
+    print(
+        " [red]{0:<20}[/red] [yellow]{1:>10}[/yellow]".format(
+            "Discord.py version:", discord.__version__
+        )
+    )
     print("")
 
 
@@ -39,8 +47,12 @@ def main():
     if cli_flags.version:
         print(f"ATOS Discord bot - {atos_version}")
         sys.exit(0)
+
     print_welcome()
     time.sleep(1)
+
+    init_logger(cli_flags.debug)
+    log.info("Initialized bot, connecting to Discord...")
 
 
 if __name__ == "__main__":
