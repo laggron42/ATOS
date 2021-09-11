@@ -11,3 +11,9 @@ __pycache__
 # Python binaries
 *.egg-info
 dist
+
+# log files
+*.log*
+
+# vscode
+.vscode
