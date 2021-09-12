@@ -7,6 +7,7 @@ import signal
 import asyncio
 
 import discord
+import dislash
 
 from rich import print
 
@@ -14,6 +15,7 @@ from atos import __version__ as atos_version
 from atos.loggers import init_logger
 
 from atos.core.bot import ATOSBot
+from atos.core.commands import Core
 
 log = logging.getLogger("atos")
 
@@ -77,11 +79,13 @@ def main():
             print("[yellow]You need to provide a token before starting the bot.[/yellow]")
             time.sleep(1)
             sys.exit(0)
-        log.info("Initialized bot, connecting to Discord...")
 
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        bot = ATOSBot()
+
+        bot = ATOSBot(command_prefix="!")
+        dislash.InteractionClient(bot, test_guilds=[705122849756545064])
+        bot.add_cog(Core(bot))
 
         try:
             loop.add_signal_handler(signal.SIGTERM, shutdown_handler, bot, "SIGTERM")
@@ -89,6 +93,7 @@ def main():
             # Not a UNIX environment (Windows)
             pass
 
+        log.info("Initialized bot, connecting to Discord...")
         loop.create_task(bot.start(token))
         loop.run_forever()
     except KeyboardInterrupt:
