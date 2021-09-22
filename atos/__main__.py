@@ -83,7 +83,7 @@ def main():
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
 
-        bot = ATOSBot(command_prefix="!")
+        bot = ATOSBot(command_prefix="!?")
         dislash.InteractionClient(bot, test_guilds=[705122849756545064])
         bot.add_cog(Core(bot))
 
